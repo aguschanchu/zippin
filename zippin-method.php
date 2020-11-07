@@ -119,7 +119,7 @@ function zippin_init()
                         if (get_option('zippin_additional_tine'))	{
                             $additional_time = get_option('zippin_additional_time');
                         } else {
-                            $additional_time = '0';
+                            $additional_time = '14';
                         }
 
                         $time = '(hasta '. ($result['shipping_time']/24+$additional_time).' días háb.)';

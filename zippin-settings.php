@@ -104,6 +104,14 @@ function init_settings()
     );
 
     add_settings_field(
+        'additional_time',
+        'Tiempo adicional',
+        __NAMESPACE__ . '\print_additional_time',
+        'zippin_settings',
+        'zippin_main_section'
+    );
+
+    add_settings_field(
         'webhook_instructions',
         'Sincronización entre Zippin y WooCommerce',
         __NAMESPACE__ . '\print_webhooks_instructions',
