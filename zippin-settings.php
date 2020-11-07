@@ -218,6 +218,13 @@ function print_additional_charge(){
 	<p class="info-text">El valor numérico ingresado se expresara como porcentaje. Ej: 20%. Dejar en cero para desactivar opción.</p>';
 }
 
+function print_additional_time(){
+    $previous_config = get_option('zippin_additional_time');
+    echo '<input type="number" required name="additional_time" value="' . ($previous_config ? $previous_config : 1) . '" />
+	<p class="info-text">Tiempo (en dias) para el despacho</p>';
+}
+
+
 function print_free_shipping_threshold(){
     $previous_config = get_option('zippin_free_shipping_threshold');
     echo '<input type="number" name="free_shipping_threshold" value="' . ($previous_config ? $previous_config : '') . '" />
@@ -349,6 +356,11 @@ function settings_page_content()
 	if (isset($_POST['additional_charge'])) {
 		wp_verify_nonce($_REQUEST['zippin_wpnonce'], 'zippin_settings_save' );
         update_option('zippin_additional_charge', filter_var($_POST['additional_charge'],FILTER_SANITIZE_NUMBER_INT));
+    }
+
+    if (isset($_POST['additional_time'])) {
+        wp_verify_nonce($_REQUEST['zippin_wpnonce'], 'zippin_settings_save' );
+        update_option('zippin_additional_time', filter_var($_POST['additional_time'],FILTER_SANITIZE_NUMBER_INT));
     }
 
     if (isset($_POST['free_shipping_threshold'])) {

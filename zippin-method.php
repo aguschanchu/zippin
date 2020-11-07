@@ -116,23 +116,13 @@ function zippin_init()
 
                     foreach ($quote_results as $result) {
 
-                        if ($result['result']['service_type']['code'] == 'pickup_point') {
-                            if ($result['shipping_time'] > 24) {
-                                $time = '(a partir de '. ($result['shipping_time']/24).' días háb. desde el despacho)';
-                            } elseif ($result['shipping_time'] == 24) {
-                                $time = '(a partir del día siguiente del despacho)';
-                            } else {
-                                $time = '(el día del despacho)'.$result['shipping_time'];
-                            }
+                        if (get_option('zippin_additional_tine'))	{
+                            $additional_time = get_option('zippin_additional_time');
                         } else {
-                            if ($result['shipping_time'] > 24) {
-                                $time = '(hasta '. ($result['shipping_time']/24).' días háb. desde el despacho)';
-                            } elseif ($result['shipping_time'] == 24) {
-                                $time = '(al día siguiente del despacho)';
-                            } else {
-                                $time = '(el día del despacho)'.$result['shipping_time'];
-                            }
+                            $additional_time = '0';
                         }
+
+                        $time = '(hasta '. ($result['shipping_time']/24+$additional_time).' días háb.)';
 
 
                         if ($use_free_shipping) {
