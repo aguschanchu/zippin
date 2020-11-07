@@ -101,11 +101,8 @@ function zippin_init()
 
                 if ($quote_results) {
 
-                    if (get_option('zippin_additional_charge'))	{
-                        $additional_charge = get_option('zippin_additional_charge');
-                    } else {
-                        $additional_charge = '0';
-                    }
+                    $additional_charge = get_option('zippin_additional_charge');
+
 
                     $use_free_shipping = false;
                     if (get_option('zippin_free_shipping_threshold')) {
@@ -116,11 +113,7 @@ function zippin_init()
 
                     foreach ($quote_results as $result) {
 
-                        if (get_option('zippin_additional_tine'))	{
-                            $additional_time = get_option('zippin_additional_time');
-                        } else {
-                            $additional_time = '14';
-                        }
+                        $additional_time = get_option('zippin_additional_time');
 
                         $time = '(hasta '. ($result['shipping_time']/24+$additional_time).' días háb.)';
 
