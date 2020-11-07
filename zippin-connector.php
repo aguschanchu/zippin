@@ -186,7 +186,7 @@ class ZippinConnector
         $payload = array(
             'account_id' => $this->get_account_id(),
             'origin_id' => $this->get_origin_id(),
-            'declared_value' => round(floatval($declared_value),2),
+            'declared_value' => 0, //round(floatval($declared_value),2),
             'destination' => $destination
         );
 
