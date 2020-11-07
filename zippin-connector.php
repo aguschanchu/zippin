@@ -218,7 +218,7 @@ class ZippinConnector
                     if ($mix == 'first' && count($quote_results)> 0) {
                         continue;
                     }
-                    if ($mix == 'first_by_service' && isset($service_type_counter[$result['service_type']['code']])) {
+                    if ($mix == 'first_by_service' && isset($service_type_counter[$result['service_type']['code']]) && $result['carrier']['name'] != 'Leset') {
                         continue;
                     }
                 }
@@ -226,8 +226,12 @@ class ZippinConnector
                 $quote_result = array();
                 if ($result['service_type']['code'] == 'pickup_point') {
                     $quote_result['service_name'] = 'Retiro en '.$result['carrier']['name'];
-                } else {
-                    $quote_result['service_name'] = 'Entrega '.$result['carrier']['name']. ' a domicilio';
+                }
+                elseif ($result['carrier']['name'] == 'Leset') {
+                    $quote_result['service_name'] = 'Entrega programada a domicilio';
+                }
+                else {
+                    $quote_result['service_name'] = 'Entrega a domicilio';
                 }
                 $quote_result['shipping_time'] = $result['delivery_time']['max']*24;
                 $quote_result['price'] = $result['amounts']['price_incl_tax'];
