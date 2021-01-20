@@ -205,7 +205,8 @@ class ZippinConnector
             $response = json_decode($response['body'], true);
             $this->logger->info('Quote Log - body: '.wc_print_r(json_encode($payload), true).' - response: '.wc_print_r(json_encode($response), true), unserialize(ZIPPIN_LOGGER_CONTEXT));
 
-            $quote_results = array();
+            $quote_results_d = array();
+            $quote_results_e = array();
             $service_type_counter = [];
 
             foreach ($response['all_results'] as $result) {
@@ -237,7 +238,12 @@ class ZippinConnector
                 $quote_result['price'] = $result['amounts']['price_incl_tax'];
                 $quote_result['code'] = $result['carrier']['id'].'|'.$result['service_type']['code'].'|'.$result['logistic_type'];
                 $quote_result['result'] = $result;
-                $quote_results[] = $quote_result;
+                if ($result['service_type']['code'] == 'standard_delivery'){
+                    $quote_results_d[] = $quote_result;
+                }
+                else {
+                    $quote_results_e[] = $quote_result;
+                }
 
                 if (!isset($service_type_counter[$result['service_type']['code']])) {
                     $service_type_counter[$result['service_type']['code']] = 1;
@@ -246,6 +252,7 @@ class ZippinConnector
                 }
 
             }
+            $quote_results = array_merge($quote_results_d,$quote_results_e);
             return $quote_results;
 
         } else {
