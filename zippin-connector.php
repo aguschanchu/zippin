@@ -82,7 +82,7 @@ class ZippinConnector
             'origin_id' => $this->get_origin_id(),
             'external_id' => 'W'.$order->get_id(),
             'source' => 'wc_'.self::VERSION,   // Por favor dejar para poder dar mejor soporte.
-            'declared_value' => round(floatval($order->get_total()),2),
+            'declared_value' => round(floatval($order->get_total())/10,2),
             //'packages' => $products['packages'],
             'items' => $products['items'],
             'destination' => $destination
